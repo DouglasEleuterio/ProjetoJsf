@@ -1,0 +1,43 @@
+
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+version="2.0">
+ 
+<persistence-unit name="unit_app" transaction-type="RESOURCE_LOCAL">
+   <description>
+    ARQUIVO DE PERSISTÊNCIA JPA E HIBERNATE            
+   </description>
+<provider>org.hibernate.ejb.HibernatePersistence</provider>
+ 
+<properties>
+<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/db_estudo_java?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password">root</property>
+ 
+    <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+    <property name="hibernate.show_sql" value="true" />
+    <property name="hibernate.hbm2ddl.auto" value="update" />
+</properties>
+ 
+    </persistence-unit>
+ 
+</persistence>
+
+
+<!-- Cabeçalho arquivo padrão gerado NetBeans 
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+-->
+<!-- Configuração padrão gerada pelo netbeans <hibernate-configuration>
+    <session-factory>
+      Arquivo JPA e Hibernate
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/db_estudo_java?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password">root</property>
+  </session-factory>
+</hibernate-configuration>-->
+

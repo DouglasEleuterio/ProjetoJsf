@@ -4,6 +4,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
@@ -15,6 +16,10 @@
     </h:head>
 
     <h:body>
+        <!--Criando variavel local com JSTL -->
+        <c:set var="numerosList" value="#{[1,2,3,4,5,6,7,8,9,10]}"/>
+               
+        
         <p:importEnum type="br.com.grupo.maratonajsf.model.enums.Turno" 
                       var="Turno" allSuffix="ALL_ENUM_VALUES" />  
 
@@ -213,11 +218,73 @@
         <br/>
         <br/>
         <br/>
+        LAMBDA, STREAMS...
+        <br/>
+        #{(soma -> soma + num)(10)}
+        <br/>
+        #{((v1, v2,v3) -> v1*v2*v3)(1,5,10)}
+        <br/>
+        #{(x -> x*x*x)(2)}
+        <br/>
+        #{cubo = (x -> x*x*x)}
+        <br/>
+        #{cubo(10)}
+        <br/>
+        <h:form>
+            <h:commandButton value="Calcular Cubo" 
+                             actionListener="#{estudanteRegistrarBean.calcularCubo((x -> x*x*x),10)}"/>
+        </h:form>
+        <br/>
+        <br/>
+        Listas 
+        <br/>
+        <ui:repeat value="#{['Douglas', 'Eleuterio','Ferreira']}" var="douglera">
+            #{douglera}
+        </ui:repeat>
+        <br/>
+        <br/>
+        Set (Nao sai na mesma ordem da declaracao, nao repete valor)
+        <br/>
+        <ui:repeat value="${{'Samuel','Eleuterio','da Silva','Samuel'}}" var="samuel">
+            #{samuel}
+        </ui:repeat>
+        <br/>
+        <br/>
+        Map
+        <br/>
+        <ui:repeat value="#{{'Melhor lugar':'DevDojo', 'Melhor Curso':'Maratonas'}}" var="fodeza" >
+            <ui:repeat value="#{fodeza.entrySet().toArray()}" var="entry">
+                #{entry.key} - #{entry.value} <br/>
+            </ui:repeat>
+        </ui:repeat>    
         <br/>
         <br/>
         <br/>
+        Streams (Imprimindo numeros mairos que 5)<br/>
+        <ui:repeat value="#{[1,2,3,4,5,6,7,8,9,10].stream().filter(v->  v>5).toList()}" 
+                   var="result">
+         #{result}   
+        </ui:repeat>
         <br/>
         <br/>
+        <br/>
+        Streams com JSTL (Instanciando e populando variaveis)<br/>
+        <ui:repeat value="#{numerosList.stream().filter(v->  v>5).toList()}" 
+                   var="result">
+         #{result}   
+        </ui:repeat>
+        <br/>
+        Pegando Media com Stream (average)
+        <br/>
+        #{numerosList.stream().average().get()}
+        <br/>
+        Somando com Stream
+        <br/>
+        #{numerosList.stream().sum()}
+        <br/>
+        Somando somente os numeros maiores que 5 com Stream
+        <br/>
+        #{numerosList.stream().filter(v-> v>5).sum()}
         <br/>
         <br/>
         <br/>

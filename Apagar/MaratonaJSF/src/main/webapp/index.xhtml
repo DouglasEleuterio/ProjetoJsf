@@ -13,7 +13,7 @@
             }
         </style>
     </h:head>
-    
+
     <h:body>
         <p:importEnum type="br.com.grupo.maratonajsf.model.enums.Turno" 
                       var="Turno" allSuffix="ALL_ENUM_VALUES" />  
@@ -163,21 +163,78 @@
 
             <h:outputLabel value="#{nomeLista}" style="color: #{status.index mod 2 == 0 ? 'red' : 'green'}"/> <br/>
         </ui:repeat>
+        <br/>
+        <br/>
+        <br/>
 
+        Sempre que houver um commandButton, ele precisa estar dentro de um form
+
+        <h:form id="form">
+            <!--Imprimindo Notas condicionalmente no JSF com elementos JSF -->
+            <h:commandButton value="Exibir Notas">
+                <f:ajax render="notasGrid" listener="#{estudanteRegistrarBean.exibirNotas()}"/>
+            </h:commandButton>
+            <br/>
+            <h:commandButton value="Esconder Notas">
+                <f:ajax render="notasGrid" listener="#{estudanteRegistrarBean.esconderNotas()}"/>
+            </h:commandButton>
+            <br/>
+            <br/>
+            <h:panelGrid id="notasGrid">
+                <h:outputText value="#{estudanteRegistrarBean.estudante.nome}" />
+                <h:outputText value="#{estudanteRegistrarBean.estudante.sobreNome}" />
+                <h:outputText value="#{estudanteRegistrarBean.estudante.turno}" />
+                Imprimindo notas se o atributo 'mostrarNotas' do Objeto for true <br/>
+                <h:outputText value="#{estudanteRegistrarBean.estudante.nota1}" 
+                              rendered="#{estudanteRegistrarBean.mostrarNotas}"/>
+                <h:outputText value="#{estudanteRegistrarBean.estudante.nota2}" 
+                              rendered="#{estudanteRegistrarBean.mostrarNotas}"/>
+                <h:outputText value="#{estudanteRegistrarBean.estudante.nota3}"
+                              rendered="#{estudanteRegistrarBean.mostrarNotas}"/>
+                <h:outputText value="#{estudanteRegistrarBean.mostrarNotas}"/>
+            </h:panelGrid>
+
+            <!--Imprimindo Notas condicionalmente no JSF com elementos HTML5 -->
+            <h:commandButton value="Exibir Link">
+                <f:ajax render="pgLink" listener="#{estudanteRegistrarBean.exibirLink()}"/>
+            </h:commandButton>
+
+            <h:commandButton value="Esconder Link">
+                <f:ajax render="pgLink" listener="#{estudanteRegistrarBean.esconderLink()}"/>
+            </h:commandButton>
+            <h:panelGroup id="pgLink">
+                <ui:fragment id="fragmentLink" rendered="#{estudanteRegistrarBean.mostrarLink}">
+                    <a href="http://www.google.com.br" target="_blank">www.google.com.br</a>
+                </ui:fragment>
+            </h:panelGroup>
+        </h:form>
+
+
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
         <h:outputLabel value="Texto colorido usando classe CSS" styleClass="classe"/>
         <script type="text/javascript">
             function fazMagica(magica) {
                 alert(magica);
             }
-            
-            function imprimeNome(nome){
-                alert (nome);
+
+            function imprimeNome(nome) {
+                alert(nome);
             }
 
         </script>
         <br/>
-        <br/>
-        
+
         <br/>
         <br/>
         <br/>

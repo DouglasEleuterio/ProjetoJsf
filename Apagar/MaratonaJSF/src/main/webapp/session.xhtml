@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <h:body>
+            <h:form>
+                <h:outputText value="#{testeSessionBean.personagemSelecionado}"/><br/>
+                <h:commandButton actionListener="#{testeSessionBean.selecionarPersonagem()}"
+                                 value="Selecionar Personagem"/>    
+                <p>Utilizando Forward.
+                Objeto permanece na memoria eh a pagina e encaminhada</p>
+                <h:commandButton actionListener="#{testeSessionBean.selecionarPersonagem()}"
+                             value="Selecionar Personagem Forward"
+                             action="session2"/>    
+                
+                <p>Utilizando Redirect.</p>
+                
+                <h:commandButton actionListener="#{testeSessionBean.selecionarPersonagem()}"
+                             value="Selecionar Personagem Redirect"
+                             action="session2?faces-redirect=true"/> 
+                <br/>
+                <br/>
+                Invalidando Secao
+                <h:commandButton action="#{testeSessionBean.logout()}"
+                             value="Logout"
+                             />    
+
+            </h:form>
+        </h:body>
+    </h:head>
+</html>
+

@@ -18,8 +18,10 @@ package br.com.grupo.maratonajsf.bean.request;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import static java.util.Arrays.asList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
@@ -27,8 +29,20 @@ import javax.inject.Named;
 @RequestScoped
 public class TesteRequestBean implements Serializable{
     //Simulando lista do banco de dados.
-    private List<String> personagens = Arrays.asList("Goku","Kuririm","Vegeta");
+    private List<String> personagens;
     private List<String> personagemSelecionado = new ArrayList<>();
+    
+    /**
+     * Se quisermos inicializar os atributos assim que o Objeto for instanciado
+     * 1 - Construtores e Atributos sao inicializados
+     * 2 - Executa o Metodo anotado como PostContruct antes de renderizar a pagina
+     * No Escopo de Requisicao Sempre que a Pagina e renderizada, o post Construct e inicializado.
+     */
+    @PostConstruct
+    public void init(){
+        System.out.println("Entrou no PostConstruct do RequestScoped");
+        this.personagens = asList("Goku","Kuririm","Vegeta");
+    }
     
     public void selecionarPersonagem(){
         int index = ThreadLocalRandom.current().nextInt(3);

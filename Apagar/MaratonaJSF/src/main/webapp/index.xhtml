@@ -3,11 +3,192 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <style type="text/css">
+            .classe{
+                color: green;
+            }
+        </style>
+    </h:head>
+    
+    <h:body>
+        <p:importEnum type="br.com.grupo.maratonajsf.model.enums.Turno" 
+                      var="Turno" allSuffix="ALL_ENUM_VALUES" />  
 
         <h:outputText value="Douglas"/>
         <br/>
         <br/>
-        <h:outputLabel value="#{estudanteRegistrarBean.nome}"/>
+        <h:outputLabel value="#{estudanteRegistrarBean.estudante.nome}"/><br/>
+        <h:outputLabel value="#{estudanteRegistrarBean.estudante['sobreNome']}"/>
+        <br/>
+        <!--Igual-->
+        <h:outputLabel value="#{estudanteRegistrarBean.estudante.nota1 eq estudanteRegistrarBean.estudante.nota2}"/>
+
+        <br/>
+        <h:outputLabel value="#{estudanteRegistrarBean.estudante.nota1 eq estudanteRegistrarBean.estudante.nota2 
+                                and
+                                estudanteRegistrarBean.estudante.nome eq estudanteRegistrarBean.estudante.nome.equals('Douglas')}"/>
+
+        <br/>
+        <h:outputText value="Comparacao de Notas" />
+        <br/>                                           <!-- Less Ten-->
+        <h:outputLabel value="#{estudanteRegistrarBean.estudante.nota1 lt estudanteRegistrarBean.estudante.nota2}"/>
+
+        <br/>                                           <!-- Less or Equals-->
+        <h:outputLabel value="#{estudanteRegistrarBean.estudante.nota1 le estudanteRegistrarBean.estudante.nota2}"/>
+        <br/>
+        <p>Operacoes Ternarias</p>
+        <h:outputLabel value="#{estudanteRegistrarBean.estudante.nota1 eq 00 ? 'Zero' : 'Nao Zero' }"/>
+        <br/>
+        <h:outputLabel value="#{estudanteRegistrarBean.estudante.nota1 eq 00 ? 'Zero' : 'Nao Zero' }"/>
+        <br/>
+        <p>Atribuindo Valor direto na Expression Language</p>
+        <br/>
+        Nao altera o valor do Atributo, tem scopo apenas dentro da "Chamada"
+        <br/>
+        <h:outputLabel value="#{estudanteRegistrarBean.estudante.nota1 = 40}"/>
+        <br/>
+        Retornou valor original
+        <br/>
+        <h:outputLabel value="#{estudanteRegistrarBean.estudante.nota1}"/>
+        <br/>
+        Contanetacao direto na Expression Language sem alterar o Atributo da Classe
+        <br/>
+        <br/>
+        <h:outputLabel value="#{estudanteRegistrarBean.estudante.nome += ' Eleuterio'}"/>
+        <br/>
+        <br/>
+        Palavras Reservadas
+        <br/>
+        and, or, not, eq, not (not), ne (!=), lt, gt,le, ge, true, false, null, instanceOf, empty , div e mod 
+        <br/>
+        <br/>
+        <!--Comentario--> 
+
+        <br/>
+        <h:outputText value="ENUM"/>
+
+        <br/>
+        <h:outputLabel value="#{estudanteRegistrarBean.estudante.turno}"/>
+        <br/>
+        <h:outputText value="Comparando Enum"/>
+        <br/>
+        <h3>Necessita de Bibliotecas de Terceiros</h3>
+        <h4>Utilizar Biblioteca OMNI Faces - Voltado para Funcoes </h4>
+        <br/>
+        <h:outputLabel value="#{estudanteRegistrarBean.estudante.turno eq (Turno.NOTURNO)}"/>
+        <br/>
+        <H4>Utilizando Colecoes e Arrays</H4>
+        <br/>
+        <!--Arrays-->
+        <h:outputLabel 
+            value="#{estudanteRegistrarBean.nomesArray[0]} 
+            #{estudanteRegistrarBean.nomesArray[1]} 
+            #{estudanteRegistrarBean.nomesArray[2]}"/>
+        <br/>
+        <br/>
+        Percorrendo Array
+        <br/>
+        <br/>
+        <ui:repeat value="#{estudanteRegistrarBean.nomesArray}" var="nome">
+            <h:outputLabel value="#{nome}"/> <br/>
+        </ui:repeat>
+        <br/>
+        <br/>
+        Trabalhando Com Lista
+        <br/>
+        <br/>
+        <!--Nao recomendado-->
+        <h:outputLabel 
+            value="#{estudanteRegistrarBean.nomesList[0]} 
+            #{estudanteRegistrarBean.nomesList[1]} 
+            #{estudanteRegistrarBean.nomesList[2]}"/>
+        <br/>
+        <br/>
+        <ui:repeat value="#{estudanteRegistrarBean.nomesList}" var="nomeLista">
+            <h:outputLabel value="#{nomeLista}"/> <br/>
+        </ui:repeat>
+        <br/>
+
+        Trabalhando Com Set
+        <br/>
+
+        for(String nome: nomesSet){ <br/>
+        &nbsp;    System.out.println(nome);    
+        <br/>
+
+        }
+        <br/>
+        <br/>
+        ---------------SET ---------------
+        <br/>   
+        <ui:repeat value="#{estudanteRegistrarBean.nomesSet.toArray()}" var="nome">
+            <h:outputLabel value="#{nome}"/> <br/>
+        </ui:repeat>
+        <br/>
+        ---------------MAP---------------
+        <br/>   
+        Pegando Map do Goku:
+        <br/>
+        <h:outputLabel value="#{estudanteRegistrarBean.nomesMap.get('Goku')}"/> <br/>
+        <h:outputLabel value="#{estudanteRegistrarBean.nomesMap}"/><br/>
+
+        Convertendo em Array para impressao. <br/><br/>
+        <ui:repeat value="#{estudanteRegistrarBean.nomesMap.entrySet().toArray()}" var="entry">
+            <h:outputLabel value="#{entry.key} - #{entry.value} "/><br/>
+        </ui:repeat>
+
+        <!--Executando metodos no Bean-->
+        <!--Expression Language solta na pagina, faz com que o metodo seja executado sempre que a pagina e carregada-->
+        #{estudanteRegistrarBean.executar()}
+        #{estudanteRegistrarBean.executar('XUXU Beleza')}
+        <!--Passando parametros que estejam dentro do proprio bean-->
+        #{estudanteRegistrarBean.executar(estudanteRegistrarBean.estudante.nome)}
+        #{estudanteRegistrarBean.executarRetorno("Douglas")}
+        <h:form>
+            <h:commandButton action="#{estudanteRegistrarBean.menuLinks()}" value="Home" />
+            <!--Passando valores com EL para funcoes JS-->
+            <h:commandButton value="Soltar magia" onclick="fazMagica('hadouken')"/>
+            <h:commandButton value="Imprimir nome com EL" onclick="imprimeNome('#{estudanteRegistrarBean.estudante.nome}')"/>
+        </h:form>
+        <br/>
+        <br/>
+        <br/>
+        <!--IMPRIMINDO CSS COM EL-->
+        <ui:repeat value="#{estudanteRegistrarBean.nomesList}" var="nomeLista"
+                   varStatus="status">
+
+            <h:outputLabel value="#{nomeLista}" style="color: #{status.index mod 2 == 0 ? 'red' : 'green'}"/> <br/>
+        </ui:repeat>
+
+        <h:outputLabel value="Texto colorido usando classe CSS" styleClass="classe"/>
+        <script type="text/javascript">
+            function fazMagica(magica) {
+                alert(magica);
+            }
+            
+            function imprimeNome(nome){
+                alert (nome);
+            }
+
+        </script>
+        <br/>
+        <br/>
+        
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+    </h:body>
 </html>
 

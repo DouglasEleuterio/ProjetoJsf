@@ -32,6 +32,11 @@
             <!-- Provided pq O WildFly ja possui as Dependencias -->
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>6.0</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
